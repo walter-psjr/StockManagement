@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StockManagement.Api.ViewModels.Input;
 using StockManagement.Api.ViewModels.Output;
+using StockManagement.Domain.Entities;
 using StockManagement.Domain.Interfaces.Repositories;
 using System;
 using System.Threading.Tasks;
-using StockManagement.Domain.Entities;
 
 namespace StockManagement.Api.Controllers
 {
@@ -44,7 +44,7 @@ namespace StockManagement.Api.Controllers
 
             await _storeRepository.SaveAsync(store);
 
-            return CreatedAtAction(nameof(GetById), new {id = store.Id}, null);
+            return CreatedAtAction(nameof(GetById), new { id = store.Id }, null);
         }
 
         [HttpPut("{id")]
