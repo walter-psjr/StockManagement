@@ -5,9 +5,13 @@ VisualStudioVersion = 16.0.31229.75
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockManagement.Api", "src\StockManagement.Api\StockManagement.Api.csproj", "{25FBB43A-035D-45C4-A471-C9809ED5196C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockManagement.Domain", "src\StockManagement.Domain\StockManagement.Domain.csproj", "{5878957C-2559-447E-AF6A-21DED096FD9B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockManagement.Domain", "src\StockManagement.Domain\StockManagement.Domain.csproj", "{5878957C-2559-447E-AF6A-21DED096FD9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockManagement.Infrastructure", "src\StockManagement.Infrastructure\StockManagement.Infrastructure.csproj", "{5957E2AF-7E6B-44B4-A9F7-420B41EB8357}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockManagement.Infrastructure", "src\StockManagement.Infrastructure\StockManagement.Infrastructure.csproj", "{5957E2AF-7E6B-44B4-A9F7-420B41EB8357}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{B9D1BCF3-AD33-4936-9953-D91471EC5A29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockManager.Api.UnitTests", "test\StockManager.Api.UnitTests\StockManager.Api.UnitTests.csproj", "{10663F00-17A6-40B1-867E-27DE5BE74FAE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,9 +31,16 @@ Global
 		{5957E2AF-7E6B-44B4-A9F7-420B41EB8357}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5957E2AF-7E6B-44B4-A9F7-420B41EB8357}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5957E2AF-7E6B-44B4-A9F7-420B41EB8357}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10663F00-17A6-40B1-867E-27DE5BE74FAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10663F00-17A6-40B1-867E-27DE5BE74FAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10663F00-17A6-40B1-867E-27DE5BE74FAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10663F00-17A6-40B1-867E-27DE5BE74FAE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{10663F00-17A6-40B1-867E-27DE5BE74FAE} = {B9D1BCF3-AD33-4936-9953-D91471EC5A29}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5380185B-30D4-4761-BF8A-5940F619C64A}
