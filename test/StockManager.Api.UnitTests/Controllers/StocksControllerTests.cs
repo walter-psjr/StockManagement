@@ -68,6 +68,8 @@ namespace StockManager.Api.UnitTests.Controllers
             var productRepositoryMock = new Mock<IProductRepository>();
             productRepositoryMock.Setup(m => m.GetByIdAsync(productId)).ReturnsAsync(product);
 
+            store.CreateStock(product, 10);
+
             var stocksController = new StocksController(storeRepositoryMock.Object, productRepositoryMock.Object);
 
             // Act

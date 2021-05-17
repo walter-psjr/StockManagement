@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using StockManagement.Domain.Entities;
 
 namespace StockManagement.Infrastructure
@@ -14,13 +16,28 @@ namespace StockManagement.Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Store>()
-                .Property(x => x.Id)
-                .HasColumnName("StoreId");
+            modelBuilder.Entity<Store>(entity =>
+            {
+                entity
+                    .Property(x => x.Id)
+                    .HasColumnName("StoreId");
+
+                entity
+                    .HasMany(x => x.StockItems)
+                    .WithOne()
+                    .IsRequired()
+                    .HasForeignKey(x => x.StoreId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
 
             modelBuilder.Entity<Product>()
                 .Property(x => x.Id)
                 .HasColumnName("ProductId");
+
+            modelBuilder.Entity<StockItem>(entity =>
+            {
+                entity.HasKey(x => new {x.StoreId, x.ProductId});
+            });
         }
     }
 }

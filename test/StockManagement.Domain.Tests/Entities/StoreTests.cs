@@ -56,11 +56,32 @@ namespace StockManagement.Domain.Tests.Entities
             };
             var amount = 10;
             var store = new Store("My Store", "My Store Address");
+            store.CreateStock(product, amount);
 
             // Act
             store.IncreaseStock(product, amount);
 
             // Assert
+            Assert.Equal(20, store.GetStockAmount(product));
+        }
+
+        [Fact]
+        public void DecreaseStockUpdatesAmountGivenAValidProduct()
+        {
+            // Arrange
+            var product = new Product("My Product", 100)
+            {
+                Id = Guid.NewGuid()
+            };
+            var amount = 10;
+            var store = new Store("My Store", "My Store Address");
+            store.CreateStock(product, amount);
+
+            // Act
+            store.DecreaseStock(product, 5);
+
+            // Assert
+            Assert.Equal(5, store.GetStockAmount(product));
         }
     }
 }

@@ -14,5 +14,15 @@ namespace StockManagement.Domain.Entities
             ProductId = productId;
             Amount = amount;
         }
+
+        public void IncreaseAmount(int amount)
+        {
+            Amount += amount;
+        }
+
+        public void DecreaseAmount(int amount)
+        {
+            Amount -= amount;
+        }
     }
 }

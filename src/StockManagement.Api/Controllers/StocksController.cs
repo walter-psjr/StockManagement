@@ -35,10 +35,23 @@ namespace StockManagement.Api.Controllers
         [HttpPost("~/api/stores/{storeId}/products/{productId}/stock/increase")]
         public async Task<IActionResult> Increase(Guid storeId, Guid productId, StockInputViewModel stockInputViewModel)
         {
-            var store = await _storeRepository.GetByIdAsync(storeId);
+            var store = await _storeRepository.GetByIdWithStockItemsAsync(storeId);
             var product = await _productRepository.GetByIdAsync(productId);
 
             store.IncreaseStock(product, stockInputViewModel.Amount);
+
+            await _storeRepository.UpdateAsync(store);
+
+            return Accepted();
+        }
+
+        [HttpPost("~/api/stores/{storeId}/products/{productId}/stock/decrease")]
+        public async Task<IActionResult> Decrease(Guid storeId, Guid productId, StockInputViewModel stockInputViewModel)
+        {
+            var store = await _storeRepository.GetByIdWithStockItemsAsync(storeId);
+            var product = await _productRepository.GetByIdAsync(productId);
+
+            store.DecreaseStock(product, stockInputViewModel.Amount);
 
             await _storeRepository.UpdateAsync(store);
 

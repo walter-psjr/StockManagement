@@ -9,6 +9,7 @@ namespace StockManagement.Domain.Entities
         private readonly List<StockItem> _stockItems;
         public string Name { get; private set; }
         public string Address { get; private set; }
+        public IList<StockItem> StockItems => _stockItems.AsReadOnly();
 
         public Store()
         {
@@ -38,7 +39,18 @@ namespace StockManagement.Domain.Entities
             _stockItems.Add(stockItem);
         }
 
-        public void IncreaseStock
+        public void IncreaseStock(Product product, int amount)
+        {
+            var stockItem = _stockItems.FirstOrDefault(x => x.ProductId == product.Id);
+
+            stockItem.IncreaseAmount(amount);
+        }
+        public void DecreaseStock(Product product, int amount)
+        {
+            var stockItem = _stockItems.FirstOrDefault(x => x.ProductId == product.Id);
+
+            stockItem.DecreaseAmount(amount);
+        }
 
         public void Update(string name, string address)
         {
