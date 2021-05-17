@@ -3,11 +3,13 @@ using StockManagement.Api.ViewModels.Input;
 using StockManagement.Domain.Interfaces.Repositories;
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace StockManagement.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class StocksController : ControllerBase
     {
         private readonly IStoreRepository _storeRepository;
