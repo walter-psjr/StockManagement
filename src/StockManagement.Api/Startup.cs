@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using StockManagement.Api.Helpers;
+using StockManagement.Api.Validators;
 using StockManagement.Domain.Interfaces.Repositories;
 using StockManagement.Infrastructure;
 using StockManagement.Infrastructure.Repositories;
@@ -30,7 +32,7 @@ namespace StockManagement.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<StoreInputViewModelValidator>());
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "StockManagement.Api", Version = "v1" });

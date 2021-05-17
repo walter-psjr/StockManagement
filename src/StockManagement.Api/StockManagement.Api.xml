@@ -4,6 +4,12 @@
         <name>StockManagement.Api</name>
     </assembly>
     <members>
+        <member name="M:StockManagement.Api.Controllers.AuthenticationController.GenerateToken">
+            <summary>
+            Generates a jwt for authentication (for testing purposes only)
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:StockManagement.Api.Controllers.ProductsController.GetById(System.Guid)">
             <summary>
             Gets a Product By Id
@@ -50,6 +56,32 @@
             <returns></returns>
             <response code="201">Returns a location header for the new store</response>
             <response code="404">Store and/or Product not found</response>
+            <response code="400">Input data validation failed</response>
+        </member>
+        <member name="M:StockManagement.Api.Controllers.StocksController.Increase(System.Guid,System.Guid,StockManagement.Api.ViewModels.Input.StockInputViewModel)">
+            <summary>
+            Add item to stock of a Store for the specific product
+            </summary>
+            <param name="storeId">The Store Id</param>
+            <param name="productId">The Product Id</param>
+            <param name="stockInputViewModel">Stock Info</param>
+            <returns></returns>
+            <response code="202"></response>
+            <response code="404">Store and/or Product not found</response>
+            <response code="400">Input data validation failed</response>
+        </member>
+        <member name="M:StockManagement.Api.Controllers.StocksController.Decrease(System.Guid,System.Guid,StockManagement.Api.ViewModels.Input.StockInputViewModel)">
+            <summary>
+            Removes items from Store stock for a specific product
+            </summary>
+            <param name="storeId"></param>
+            <param name="productId"></param>
+            <param name="stockInputViewModel"></param>
+            <returns></returns>
+            <response code="202"></response>
+            <response code="404">Store and/or Product not found</response>
+            <response code="400">Input data validation failed</response>
+            <response code="409">Some business rule not pass</response>
         </member>
         <member name="M:StockManagement.Api.Controllers.StoresController.GetById(System.Guid)">
             <summary>
@@ -67,6 +99,7 @@
             <param name="storeInputViewModel">The new store data</param>
             <returns></returns>
             <response code="201">Returns a location header for the new store</response>
+            <response code="400">Input data validation failed</response>
         </member>
         <member name="M:StockManagement.Api.Controllers.StoresController.Update(System.Guid,StockManagement.Api.ViewModels.Input.StoreInputViewModel)">
             <summary>
@@ -77,6 +110,7 @@
             <returns></returns>
             <response code="204"></response>
             <response code="404">Store not found</response>
+            <response code="400">Input data validation failed</response>
         </member>
         <member name="M:StockManagement.Api.Controllers.StoresController.Delete(System.Guid)">
             <summary>

@@ -56,8 +56,10 @@ namespace StockManagement.Api.Controllers
         /// <param name="storeInputViewModel">The new store data</param>
         /// <returns></returns>
         /// <response code="201">Returns a location header for the new store</response>
+        /// <response code="400">Input data validation failed</response>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Create(StoreInputViewModel storeInputViewModel)
         {
             var store = new Store(storeInputViewModel.Name, storeInputViewModel.Address);
@@ -75,9 +77,11 @@ namespace StockManagement.Api.Controllers
         /// <returns></returns>
         /// <response code="204"></response>
         /// <response code="404">Store not found</response>
+        /// <response code="400">Input data validation failed</response>
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Update(Guid id, StoreInputViewModel storeInputViewModel)
         {
             var store = await _storeRepository.GetByIdAsync(id);

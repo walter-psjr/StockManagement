@@ -32,9 +32,11 @@ namespace StockManagement.Api.Controllers
         /// <returns></returns>
         /// <response code="201">Returns a location header for the new store</response>
         /// <response code="404">Store and/or Product not found</response>
+        /// <response code="400">Input data validation failed</response>
         [HttpPost("~/api/stores/{storeId}/products/{productId}/stock")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Create(Guid storeId, Guid productId, StockInputViewModel stockInputViewModel)
         {
             var store = await _storeRepository.GetByIdAsync(storeId);
@@ -63,9 +65,11 @@ namespace StockManagement.Api.Controllers
         /// <returns></returns>
         /// <response code="202"></response>
         /// <response code="404">Store and/or Product not found</response>
+        /// <response code="400">Input data validation failed</response>
         [HttpPost("~/api/stores/{storeId}/products/{productId}/stock/increase")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Increase(Guid storeId, Guid productId, StockInputViewModel stockInputViewModel)
         {
             var store = await _storeRepository.GetByIdWithStockItemsAsync(storeId);
@@ -94,10 +98,12 @@ namespace StockManagement.Api.Controllers
         /// <returns></returns>
         /// <response code="202"></response>
         /// <response code="404">Store and/or Product not found</response>
+        /// <response code="400">Input data validation failed</response>
         /// <response code="409">Some business rule not pass</response>
         [HttpPost("~/api/stores/{storeId}/products/{productId}/stock/decrease")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> Decrease(Guid storeId, Guid productId, StockInputViewModel stockInputViewModel)
         {
