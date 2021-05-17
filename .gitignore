@@ -348,3 +348,4 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/src/StockManagement.Api/Properties/ServiceDependencies/my-stock-management - Web Deploy/profile.arm.json
