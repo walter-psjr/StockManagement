@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>StockManagement.Api</name>
+    </assembly>
+    <members>
+        <member name="M:StockManagement.Api.Controllers.ProductsController.GetById(System.Guid)">
+            <summary>
+            Gets a Product By Id
+            </summary>
+            <param name="id">The Product Id</param>
+            <returns>Returns the found Product</returns>
+            <response code="200">Returns the found product</response>
+            <response code="404">If the product is not found</response>
+        </member>
+        <member name="M:StockManagement.Api.Controllers.ProductsController.Create(StockManagement.Api.ViewModels.Input.ProductInputViewModel)">
+            <summary>
+            Creates a new Product
+            </summary>
+            <param name="productInputViewModel">The new product data</param>
+            <returns></returns>
+            <response code="201">Returns a location header for the new product</response>
+        </member>
+        <member name="M:StockManagement.Api.Controllers.ProductsController.Update(System.Guid,StockManagement.Api.ViewModels.Input.ProductInputViewModel)">
+            <summary>
+            Updates a Product
+            </summary>
+            <param name="id">The Product Id</param>
+            <param name="productInputViewModel">The Store data to be updated</param>
+            <returns></returns>
+            <response code="204"></response>
+            <response code="404">Product not found</response>
+        </member>
+        <member name="M:StockManagement.Api.Controllers.ProductsController.Delete(System.Guid)">
+            <summary>
+            Deletes a Product
+            </summary>
+            <param name="id">The Product Id</param>
+            <returns></returns>
+            <response code="204"></response>
+            <response code="404">Product not found</response>
+        </member>
+        <member name="M:StockManagement.Api.Controllers.StocksController.Create(System.Guid,System.Guid,StockManagement.Api.ViewModels.Input.StockInputViewModel)">
+            <summary>
+            Creates stock for the specified Store and Product
+            </summary>
+            <param name="storeId">The Store Id</param>
+            <param name="productId">The Product Id</param>
+            <param name="stockInputViewModel">Stock info</param>
+            <returns></returns>
+            <response code="201">Returns a location header for the new store</response>
+            <response code="404">Store and/or Product not found</response>
+        </member>
+        <member name="M:StockManagement.Api.Controllers.StoresController.GetById(System.Guid)">
+            <summary>
+            Gets a Store by Id
+            </summary>
+            <param name="id">The Store Id</param>
+            <returns>The Store</returns>
+            <response code="200">Returns the found store</response>
+            <response code="404">If the store is not found</response>
+        </member>
+        <member name="M:StockManagement.Api.Controllers.StoresController.Create(StockManagement.Api.ViewModels.Input.StoreInputViewModel)">
+            <summary>
+            Creates a new Store
+            </summary>
+            <param name="storeInputViewModel">The new store data</param>
+            <returns></returns>
+            <response code="201">Returns a location header for the new store</response>
+        </member>
+        <member name="M:StockManagement.Api.Controllers.StoresController.Update(System.Guid,StockManagement.Api.ViewModels.Input.StoreInputViewModel)">
+            <summary>
+            Updates a Store
+            </summary>
+            <param name="id">The Store Id</param>
+            <param name="storeInputViewModel">The Store data to be updated</param>
+            <returns></returns>
+            <response code="204"></response>
+            <response code="404">Store not found</response>
+        </member>
+        <member name="M:StockManagement.Api.Controllers.StoresController.Delete(System.Guid)">
+            <summary>
+            Deletes a Store
+            </summary>
+            <param name="id">The Store Id</param>
+            <returns></returns>
+            <response code="204"></response>
+            <response code="404">Store not found</response>
+        </member>
+    </members>
+</doc>

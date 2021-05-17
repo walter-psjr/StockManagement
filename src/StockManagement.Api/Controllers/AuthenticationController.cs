@@ -4,6 +4,7 @@ using StockManagement.Api.Helpers;
 namespace StockManagement.Api.Controllers
 {
     [Route("api/[controller]")]
+    [Produces("application/json")]
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
@@ -14,6 +15,10 @@ namespace StockManagement.Api.Controllers
             _tokenHelper = tokenHelper;
         }
 
+        /// <summary>
+        /// Generates a jwt for authentication (for testing purposes only)
+        /// </summary>
+        /// <returns></returns>
         [HttpPost("token")]
         public IActionResult GenerateToken()
         {

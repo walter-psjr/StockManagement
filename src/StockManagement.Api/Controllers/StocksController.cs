@@ -1,14 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using StockManagement.Api.ViewModels.Input;
 using StockManagement.Domain.Interfaces.Repositories;
 using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 
 namespace StockManagement.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Produces("application/json")]
     [Authorize]
     public class StocksController : ControllerBase
     {
@@ -21,7 +23,18 @@ namespace StockManagement.Api.Controllers
             _productRepository = productRepository;
         }
 
+        /// <summary>
+        /// Creates stock for the specified Store and Product
+        /// </summary>
+        /// <param name="storeId">The Store Id</param>
+        /// <param name="productId">The Product Id</param>
+        /// <param name="stockInputViewModel">Stock info</param>
+        /// <returns></returns>
+        /// <response code="201">Returns a location header for the new store</response>
+        /// <response code="404">Store and/or Product not found</response>
         [HttpPost("~/api/stores/{storeId}/products/{productId}/stock")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Create(Guid storeId, Guid productId, StockInputViewModel stockInputViewModel)
         {
             var store = await _storeRepository.GetByIdAsync(storeId);
@@ -41,7 +54,18 @@ namespace StockManagement.Api.Controllers
             return Created(string.Empty, null);
         }
 
+        /// <summary>
+        /// Add item to stock of a Store for the specific product
+        /// </summary>
+        /// <param name="storeId">The Store Id</param>
+        /// <param name="productId">The Product Id</param>
+        /// <param name="stockInputViewModel">Stock Info</param>
+        /// <returns></returns>
+        /// <response code="202"></response>
+        /// <response code="404">Store and/or Product not found</response>
         [HttpPost("~/api/stores/{storeId}/products/{productId}/stock/increase")]
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Increase(Guid storeId, Guid productId, StockInputViewModel stockInputViewModel)
         {
             var store = await _storeRepository.GetByIdWithStockItemsAsync(storeId);
@@ -61,7 +85,20 @@ namespace StockManagement.Api.Controllers
             return Accepted();
         }
 
+        /// <summary>
+        /// Removes items from Store stock for a specific product
+        /// </summary>
+        /// <param name="storeId"></param>
+        /// <param name="productId"></param>
+        /// <param name="stockInputViewModel"></param>
+        /// <returns></returns>
+        /// <response code="202"></response>
+        /// <response code="404">Store and/or Product not found</response>
+        /// <response code="409">Some business rule not pass</response>
         [HttpPost("~/api/stores/{storeId}/products/{productId}/stock/decrease")]
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> Decrease(Guid storeId, Guid productId, StockInputViewModel stockInputViewModel)
         {
             var store = await _storeRepository.GetByIdWithStockItemsAsync(storeId);
