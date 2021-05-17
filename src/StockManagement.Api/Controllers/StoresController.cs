@@ -47,7 +47,7 @@ namespace StockManagement.Api.Controllers
             return CreatedAtAction(nameof(GetById), new { id = store.Id }, null);
         }
 
-        [HttpPut("{id")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> Update(Guid id, StoreInputViewModel storeInputViewModel)
         {
             var store = await _storeRepository.GetByIdAsync(id);
