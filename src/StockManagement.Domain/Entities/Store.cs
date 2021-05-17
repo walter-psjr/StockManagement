@@ -1,15 +1,44 @@
-﻿namespace StockManagement.Domain.Entities
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace StockManagement.Domain.Entities
 {
     public class Store : BaseEntity
     {
+        private readonly List<StockItem> _stockItems;
         public string Name { get; private set; }
         public string Address { get; private set; }
 
-        public Store(string name, string address)
+        public Store()
+        {
+            _stockItems = new List<StockItem>();
+        }
+
+        public Store(string name, string address) : this()
         {
             Name = name;
             Address = address;
         }
+
+        public int GetStockAmount(Product product)
+        {
+            var stockItem = _stockItems.FirstOrDefault(x => x.ProductId == product.Id);
+
+            return stockItem.Amount;
+        }
+
+        public void CreateStock(Product product, int amount)
+        {
+            if (_stockItems.Any(x => x.ProductId == product.Id))
+                throw new InvalidOperationException($"There is already stock for the product {product.Id}");
+
+            var stockItem = new StockItem(Id, product.Id, amount);
+
+            _stockItems.Add(stockItem);
+        }
+
+        public void IncreaseStock
 
         public void Update(string name, string address)
         {
