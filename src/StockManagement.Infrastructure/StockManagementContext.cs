@@ -37,6 +37,8 @@ namespace StockManagement.Infrastructure
             modelBuilder.Entity<StockItem>(entity =>
             {
                 entity.HasKey(x => new {x.StoreId, x.ProductId});
+
+                entity.UseXminAsConcurrencyToken();
             });
         }
     }

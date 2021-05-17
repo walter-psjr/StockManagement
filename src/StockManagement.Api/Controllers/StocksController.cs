@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StockManagement.Api.ViewModels.Input;
+using StockManagement.Domain.Interfaces.Repositories;
 using System;
 using System.Threading.Tasks;
-using StockManagement.Domain.Interfaces.Repositories;
 
 namespace StockManagement.Api.Controllers
 {
@@ -23,7 +23,14 @@ namespace StockManagement.Api.Controllers
         public async Task<IActionResult> Create(Guid storeId, Guid productId, StockInputViewModel stockInputViewModel)
         {
             var store = await _storeRepository.GetByIdAsync(storeId);
+
+            if (store == null)
+                return NotFound($"Store {storeId} not found");
+
             var product = await _productRepository.GetByIdAsync(productId);
+
+            if (product == null)
+                return NotFound($"Product {productId} not found");
 
             store.CreateStock(product, stockInputViewModel.Amount);
 
@@ -36,7 +43,14 @@ namespace StockManagement.Api.Controllers
         public async Task<IActionResult> Increase(Guid storeId, Guid productId, StockInputViewModel stockInputViewModel)
         {
             var store = await _storeRepository.GetByIdWithStockItemsAsync(storeId);
+
+            if (store == null)
+                return NotFound($"Store {storeId} not found");
+
             var product = await _productRepository.GetByIdAsync(productId);
+
+            if (product == null)
+                return NotFound($"Product {productId} not found");
 
             store.IncreaseStock(product, stockInputViewModel.Amount);
 
@@ -49,13 +63,27 @@ namespace StockManagement.Api.Controllers
         public async Task<IActionResult> Decrease(Guid storeId, Guid productId, StockInputViewModel stockInputViewModel)
         {
             var store = await _storeRepository.GetByIdWithStockItemsAsync(storeId);
+
+            if (store == null)
+                return NotFound($"Store {storeId} not found");
+
             var product = await _productRepository.GetByIdAsync(productId);
 
-            store.DecreaseStock(product, stockInputViewModel.Amount);
+            if (product == null)
+                return NotFound($"Product {productId} not found");
 
-            await _storeRepository.UpdateAsync(store);
+            try
+            {
+                store.DecreaseStock(product, stockInputViewModel.Amount);
 
-            return Accepted();
+                await _storeRepository.UpdateAsync(store);
+
+                return Accepted();
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(ex.Message);
+            }
         }
     }
 }

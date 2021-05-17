@@ -7,6 +7,7 @@ namespace StockManagement.Domain.Entities
         public Guid StoreId { get; private set; }
         public Guid ProductId { get; private set; }
         public int Amount { get; private set; }
+        public uint xmin { get; set; }
 
         public StockItem(Guid storeId, Guid productId, int amount)
         {
@@ -22,6 +23,9 @@ namespace StockManagement.Domain.Entities
 
         public void DecreaseAmount(int amount)
         {
+            if (Amount < amount)
+                throw new InvalidOperationException($"Current amount is {Amount} and cannot be decreased by {amount}");
+
             Amount -= amount;
         }
     }
