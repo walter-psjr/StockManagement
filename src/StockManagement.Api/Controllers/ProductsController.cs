@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using StockManagement.Api.ViewModels.Input;
 using StockManagement.Api.ViewModels.Output;
 using StockManagement.Domain.Entities;
@@ -10,6 +11,7 @@ namespace StockManagement.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProductsController : ControllerBase
     {
         private readonly IProductRepository _productRepository;
